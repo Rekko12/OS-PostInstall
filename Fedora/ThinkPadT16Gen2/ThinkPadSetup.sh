@@ -97,18 +97,17 @@ dnf upgrade -y
 # System Configuration
 # Set the system hostname to uniquely identify the machine on the network
 color_echo "yellow" "Setting hostname..."
-hostnamectl set-hostname T16G2
+hostnamectl set-hostname ThinkPadEma
 
 # Optimize DNF package manager for faster downloads and efficient updates
 color_echo "yellow" "Configuring DNF Package Manager..."
 backup_file "/etc/dnf/dnf.conf"
-echo "max_parallel_downloads=20" | tee -a /etc/dnf/dnf.conf > /dev/null
 dnf -y install dnf-plugins-core
 
 # Enable and configure automatic system updates to enhance security and stability
 color_echo "yellow" "Enabling DNF autoupdate..."
 dnf install dnf-automatic -y
-touch /etc/dnf/automatic.conf
+sed -i 's/apply_updates = no/apply_updates = yes/' /etc/dnf/automatic.conf
 systemctl enable --now dnf-automatic.timer
 
 # Replace Fedora Flatpak Repo with Flathub for better package management and apps stability
@@ -150,21 +149,32 @@ dnf install -y @virtualization
 # App Installation
 # Install essential applications
 color_echo "yellow" "Installing essential applications..."
-dnf install -y fastfetch unzip unrar git wget curl
+dnf install -y btop inxi fastfetch unzip unrar git wget curl
 color_echo "green" "Essential applications installed successfully."
 
 # Install Internet & Communication applications
 color_echo "yellow" "Installing Brave..."
-flatpak install -y flathub com.brave.Browser
+dnf install -y dnf-plugins-core
+if command -v dnf4 &>/dev/null; then
+  dnf4 config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+else
+  dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+fi
+rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+dnf install -y brave-browser
 color_echo "green" "Brave installed successfully."
+color_echo "yellow" "Installing LibreWolf..."
+curl -fsSL https://repo.librewolf.net/librewolf.repo | pkexec tee /etc/yum.repos.d/librewolf.repo
+dnf install -y librewolf
+color_echo "green" "LibreWolf installed successfully."
 color_echo "yellow" "Installing Betterbird..."
 flatpak install -y flathub eu.betterbird.Betterbird
 color_echo "green" "Betterbird installed successfully."
 color_echo "yellow" "Installing Discord..."
-flatpak install -y flathub com.discordapp.Discord
+dnf install -y discord
 color_echo "green" "Discord installed successfully."
 color_echo "yellow" "Installing Telegram Desktop..."
-flatpak install -y flathub org.telegram.desktop
+dnf install -y telegram-desktop
 color_echo "green" "Telegram Desktop installed successfully."
 
 # Install Coding and DevOps applications
@@ -185,13 +195,21 @@ color_echo "yellow" "Installing VLC..."
 dnf install -y vlc
 color_echo "green" "VLC installed successfully."
 color_echo "yellow" "Installing OBS Studio..."
-flatpak install flathub com.obsproject.Studio
+dnf install -y obs-studio
 color_echo "green" "OBS Studio installed successfully."
+color_echo "yellow" "Installing MPV..."
+dnf install -y mpv
+color_echo "green" "MPV installed successfully."
 
 # Install Remote Networking applications
 color_echo "yellow" "Installing RustDesk..."
 flatpak install -y flathub com.rustdesk.RustDesk
 color_echo "green" "RustDesk installed successfully."
+
+# Install File Sharing & Download applications
+color_echo "yellow" "Installing qBittorrent..."
+dnf install -y qbittorrent
+color_echo "green" "qBittorrent installed successfully."
 
 # Install System Tools applications
 color_echo "yellow" "Installing Gear Lever..."
@@ -206,25 +224,71 @@ color_echo "green" "Gear Lever installed successfully."
 # Custom user-defined commands
 color_echo "yellow" "Disabling NetworkManager-wait-online"
 systemctl disable NetworkManager-wait-online.service
+
+color_echo "yellow" "Remove Brave Bloat"
+bash <(curl -s https://raw.githubusercontent.com/MulesGaming/brave-debloatinator/main/brave-bullshitinator-linux-install.sh)
+
 color_echo "yellow" "Removing KDE-PIM group"
 dnf group remove kde-pim -y
+
 color_echo "yellow" "Removing KDE apps"
 dnf remove kamoso mediawriter elisa-player kcharselect kcolorchooser dragon kmines kmahjongg kpat kmouth kolourpaint neochat firefox qrca khelpcenter plasma-welcome -y --no-autoremove
+
 color_echo "yellow" "Installing necessary apps"
+
 # Install Termius
 flatpak install -y flathub com.termius.Termius
+
 # Install EasyEffect
-flatpak install -y flathub com.github.wwmm.easyeffects
+dnf install easyeffect -y
+
 # Install ZapZap
 flatpak install -y flathub com.rtosta.zapzap
-# Install ProtonPass
-flatpak install -y flathub me.proton.Pass
-# Install Pomodoro Timer
-flatpak install -y flathub org.jousse.vincent.Pomodorolm
-# Install LocalSend
-flatpak install -y flathub org.localsend.localsend_app
+
 # Install Moonlight
 flatpak install -y flathub com.moonlight_stream.Moonlight
+
+# Install Distrobox and DistroShelf
+dnf install distrobox -y
+flatpak install -y com.ranfdev.DistroShelf
+
+# Install LocalSend
+flatpak install -y flathub org.localsend.localsend_app
+
+# Install GetEduroam
+flatpak install -y flathub app.eduroam.geteduroam
+
+# Install Planify
+flatpak install -y flathub io.github.alainm23.planify
+
+# Install WareHouse
+flatpak install flathub io.github.flattool.Warehouse
+
+# Install Calibre
+dnf install calibre -y
+
+echo -e "\e[31m======================================================================
+ATTENZIONE: INSTALLAZIONI MANUALI RICHIESTE
+======================================================================
+Per completare la configurazione del sistema, è necessario installare 
+le seguenti applicazioni tramite GearLever. 
+
+Per favore, recati sui rispettivi repository GitHub ufficiali, scarica
+l'ultima release in formato AppImage e importala in GearLever:
+
+  1. Vesktop 
+     (dal GitHub ufficiale di Vencord/Vesktop)
+
+  2. Pear Desktop / YouTube Music 
+     (dal GitHub ufficiale del progetto)
+
+  3. Obsidian 
+     (dal GitHub ufficiale di Obsidian)
+
+Una volta scaricati i file, apri GearLever e trascinali all'interno 
+per integrarli comodamente nel menu delle applicazioni.
+======================================================================\e[0m"
+
 
 # Before finishing, ensure we're in a safe directory
 cd /tmp || cd $ACTUAL_HOME || cd /
