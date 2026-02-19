@@ -170,9 +170,6 @@ color_echo "green" "LibreWolf installed successfully."
 color_echo "yellow" "Installing Betterbird..."
 flatpak install -y flathub eu.betterbird.Betterbird
 color_echo "green" "Betterbird installed successfully."
-color_echo "yellow" "Installing Discord..."
-dnf install -y discord
-color_echo "green" "Discord installed successfully."
 color_echo "yellow" "Installing Telegram Desktop..."
 dnf install -y telegram-desktop
 color_echo "green" "Telegram Desktop installed successfully."
@@ -197,9 +194,6 @@ color_echo "green" "VLC installed successfully."
 color_echo "yellow" "Installing OBS Studio..."
 dnf install -y obs-studio
 color_echo "green" "OBS Studio installed successfully."
-color_echo "yellow" "Installing MPV..."
-dnf install -y mpv
-color_echo "green" "MPV installed successfully."
 
 # Install Remote Networking applications
 color_echo "yellow" "Installing RustDesk..."
@@ -267,9 +261,33 @@ flatpak install flathub io.github.flattool.Warehouse
 # Install Calibre
 dnf install calibre -y
 
+# Install Ente Auth
+flatpak install -y flathub io.ente.auth
+
+# Install Pomodorolm
+flatpak install flathub org.jousse.vincent.Pomodorolm
+
+
+
+
+# Before finishing, ensure we're in a safe directory
+cd /tmp || cd $ACTUAL_HOME || cd /
+
+# Finish
+echo "";
+echo "╔═════════════════════════════════════════════════════════════════════════╗";
+echo "║                                                                         ║";
+echo "║   ░█░█░█▀▀░█░░░█▀▀░█▀█░█▄█░█▀▀░░░▀█▀░█▀█░░░█▀▀░█▀▀░█▀▄░█▀█░█▀▄░█▀█░█░   ║";
+echo "║   ░█▄█░█▀▀░█░░░█░░░█░█░█░█░█▀▀░░░░█░░█░█░░░█▀▀░█▀▀░█░█░█░█░█▀▄░█▀█░▀░   ║";
+echo "║   ░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░░░░▀░░▀▀▀░░░▀░░░▀▀▀░▀▀░░▀▀▀░▀░▀░▀░▀░▀░   ║";
+echo "║                                                                         ║";
+echo "╚═════════════════════════════════════════════════════════════════════════╝";
+echo "";
+color_echo "green" "All steps completed. Enjoy!"
 echo -e "\e[31m======================================================================
 ATTENZIONE: INSTALLAZIONI MANUALI RICHIESTE
 ======================================================================
+DA FARE PRE REBOOT!!!!
 Per completare la configurazione del sistema, è necessario installare 
 le seguenti applicazioni tramite GearLever. 
 
@@ -287,23 +305,11 @@ l'ultima release in formato AppImage e importala in GearLever:
 
 Una volta scaricati i file, apri GearLever e trascinali all'interno 
 per integrarli comodamente nel menu delle applicazioni.
+        
+QUESTO POST REBOOT!!!!
+- Aggiustare tutte le impostazioni Plasma
+- Aggiustare gli speaker con il profilo EasyEffect del T14G4 (preso da ArchWiki)
 ======================================================================\e[0m"
-
-
-# Before finishing, ensure we're in a safe directory
-cd /tmp || cd $ACTUAL_HOME || cd /
-
-# Finish
-echo "";
-echo "╔═════════════════════════════════════════════════════════════════════════╗";
-echo "║                                                                         ║";
-echo "║   ░█░█░█▀▀░█░░░█▀▀░█▀█░█▄█░█▀▀░░░▀█▀░█▀█░░░█▀▀░█▀▀░█▀▄░█▀█░█▀▄░█▀█░█░   ║";
-echo "║   ░█▄█░█▀▀░█░░░█░░░█░█░█░█░█▀▀░░░░█░░█░█░░░█▀▀░█▀▀░█░█░█░█░█▀▄░█▀█░▀░   ║";
-echo "║   ░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░░░░▀░░▀▀▀░░░▀░░░▀▀▀░▀▀░░▀▀▀░▀░▀░▀░▀░▀░   ║";
-echo "║                                                                         ║";
-echo "╚═════════════════════════════════════════════════════════════════════════╝";
-echo "";
-color_echo "green" "All steps completed. Enjoy!"
 
 # Prompt for reboot
 prompt_reboot
