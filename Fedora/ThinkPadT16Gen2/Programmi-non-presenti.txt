@@ -1,2 +1,1 @@
-- Youtube Music (client di terze parti su Github, via GearLever)
-- Obsidian (AppImage, via GearLever)
+
