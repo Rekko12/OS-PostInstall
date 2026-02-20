@@ -234,7 +234,7 @@ color_echo "yellow" "Installing necessary apps"
 flatpak install -y flathub com.termius.Termius
 
 # Install EasyEffect
-dnf install easyeffect -y
+dnf install easyeffects -y
 
 # Install ZapZap
 flatpak install -y flathub com.rtosta.zapzap
