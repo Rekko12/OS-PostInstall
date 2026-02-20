@@ -256,7 +256,7 @@ flatpak install -y flathub app.eduroam.geteduroam
 flatpak install -y flathub io.github.alainm23.planify
 
 # Install WareHouse
-flatpak install flathub io.github.flattool.Warehouse
+flatpak install -y flathub io.github.flattool.Warehouse
 
 # Install Calibre
 dnf install calibre -y
@@ -265,7 +265,7 @@ dnf install calibre -y
 flatpak install -y flathub io.ente.auth
 
 # Install Pomodorolm
-flatpak install flathub org.jousse.vincent.Pomodorolm
+flatpak install -y flathub org.jousse.vincent.Pomodorolm
 
 
 
