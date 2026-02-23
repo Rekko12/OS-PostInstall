@@ -220,7 +220,7 @@ color_echo "yellow" "Disabling NetworkManager-wait-online"
 systemctl disable NetworkManager-wait-online.service
 
 color_echo "yellow" "Remove Brave Bloat"
-bash <(curl -s https://raw.githubusercontent.com/MulesGaming/brave-debloatinator/main/brave-bullshitinator-linux-install.sh)
+bash <(curl -s https://raw.githubusercontent.com/Rekko12/brave-debloatinator/refs/heads/main/brave-bullshitinator-linux-install.sh)
 
 color_echo "yellow" "Removing KDE-PIM group"
 dnf group remove kde-pim -y
