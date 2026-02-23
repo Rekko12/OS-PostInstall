@@ -226,7 +226,7 @@ color_echo "yellow" "Removing KDE-PIM group"
 dnf group remove kde-pim -y
 
 color_echo "yellow" "Removing KDE apps"
-dnf remove kamoso mediawriter elisa-player kcharselect kcolorchooser dragon kmines kmahjongg kpat kmouth kolourpaint neochat firefox qrca khelpcenter plasma-welcome -y --no-autoremove
+dnf remove kamoso mediawriter elisa-player kcharselect kcolorchooser dragon kmines kmahjongg kpat kmouth kolourpaint neochat firefox qrca khelpcenter plasma-welcome -y 
 
 color_echo "yellow" "Installing necessary apps"
 
