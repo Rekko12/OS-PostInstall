@@ -234,7 +234,7 @@ color_echo "yellow" "Installing necessary apps"
 flatpak install -y flathub com.termius.Termius
 
 # Install EasyEffect
-dnf install easyeffects -y
+flatpak install -y flathub com.github.wwmm.easyeffects
 
 # Install ZapZap
 flatpak install -y flathub com.rtosta.zapzap
@@ -301,6 +301,9 @@ l'ultima release in formato AppImage e importala in GearLever:
      (dal GitHub ufficiale del progetto)
 
   3. Obsidian 
+     (dal GitHub ufficiale di Obsidian)
+  
+  4. Motrix
      (dal GitHub ufficiale di Obsidian)
 
 Una volta scaricati i file, apri GearLever e trascinali all'interno 
