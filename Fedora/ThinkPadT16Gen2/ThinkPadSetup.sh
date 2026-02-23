@@ -226,9 +226,11 @@ color_echo "yellow" "Removing KDE-PIM group"
 dnf group remove kde-pim -y
 
 color_echo "yellow" "Removing KDE apps"
+dnf mark dependency plasma-browser-integration
 dnf remove kamoso mediawriter elisa-player kcharselect kcolorchooser dragon kmines kmahjongg kpat kmouth kolourpaint neochat firefox qrca khelpcenter plasma-welcome -y 
 
 color_echo "yellow" "Installing necessary apps"
+
 
 # Install Termius
 flatpak install -y flathub com.termius.Termius
