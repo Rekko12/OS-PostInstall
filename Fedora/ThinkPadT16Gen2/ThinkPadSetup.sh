@@ -93,7 +93,6 @@ read -p "Press Enter to continue or CTRL+C to cancel..."
 color_echo "blue" "Performing system upgrade... This may take a while..."
 dnf upgrade -y
 
-
 # System Configuration
 # Set the system hostname to uniquely identify the machine on the network
 color_echo "yellow" "Setting hostname..."
@@ -144,7 +143,6 @@ dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld -y
 # Install virtualization tools to enable virtual machines and containerization
 color_echo "yellow" "Installing virtualization tools..."
 dnf install -y @virtualization
-
 
 # App Installation
 # Install essential applications
@@ -210,9 +208,7 @@ color_echo "yellow" "Installing Gear Lever..."
 flatpak install -y flathub it.mijorus.gearlever
 color_echo "green" "Gear Lever installed successfully."
 
-
 # Customization
-
 
 # Custom user-defined commands
 # Custom user-defined commands
@@ -270,7 +266,9 @@ flatpak install -y flathub io.ente.auth
 flatpak install -y flathub org.jousse.vincent.Pomodorolm
 
 
-
+# Download various files
+wget -O ~/Scaricati/Vesktop https://vencord.dev/download/vesktop/amd64/appimage
+wget -O ~/Scaricati/DolbyDynamic https://stuff.kurz.pw/arch/P14s_G4/Speakers/impulse-dynamic.wav
 
 # Before finishing, ensure we're in a safe directory
 cd /tmp || cd $ACTUAL_HOME || cd /
@@ -306,7 +304,7 @@ l'ultima release in formato AppImage e importala in GearLever:
      (dal GitHub ufficiale di Obsidian)
   
   4. Motrix
-     (dal GitHub ufficiale di Obsidian)
+     (dal GitHub ufficiale di Motrix)
 
 Una volta scaricati i file, apri GearLever e trascinali all'interno 
 per integrarli comodamente nel menu delle applicazioni.
