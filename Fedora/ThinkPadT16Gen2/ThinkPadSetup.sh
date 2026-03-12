@@ -101,12 +101,12 @@ hostnamectl set-hostname ThinkPadEma
 # Optimize DNF package manager for faster downloads and efficient updates
 color_echo "yellow" "Configuring DNF Package Manager..."
 backup_file "/etc/dnf/dnf.conf"
+sed -i '/^\[main\]/a max_parallel_downloads=20\nfastestmirror=True\nminspeed=5M' /etc/dnf/dnf.conf
 dnf -y install dnf-plugins-core
 
 # Enable and configure automatic system updates to enhance security and stability
 color_echo "yellow" "Enabling DNF autoupdate..."
 dnf install dnf-automatic -y
-sed -i 's/apply_updates = no/apply_updates = yes/' /etc/dnf/automatic.conf
 systemctl enable --now dnf-automatic.timer
 
 # Replace Fedora Flatpak Repo with Flathub for better package management and apps stability
