@@ -223,7 +223,7 @@ dnf group remove kde-pim -y
 
 color_echo "yellow" "Removing KDE apps"
 dnf mark dependency plasma-browser-integration
-dnf remove kamoso mediawriter elisa-player kcharselect kcolorchooser dragon kmines kmahjongg kpat kmouth kolourpaint neochat firefox qrca khelpcenter plasma-welcome -y 
+dnf remove kamoso mediawriter elisa-player kcharselect kcolorchooser dragon kmines kmahjongg kpat kmouth kolourpaint neochat firefox khelpcenter plasma-welcome -y 
 
 color_echo "yellow" "Installing necessary apps"
 
