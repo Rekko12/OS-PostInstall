@@ -198,11 +198,6 @@ color_echo "yellow" "Installing RustDesk..."
 flatpak install -y flathub com.rustdesk.RustDesk
 color_echo "green" "RustDesk installed successfully."
 
-# Install File Sharing & Download applications
-color_echo "yellow" "Installing qBittorrent..."
-dnf install -y qbittorrent
-color_echo "green" "qBittorrent installed successfully."
-
 # Install System Tools applications
 color_echo "yellow" "Installing Gear Lever..."
 flatpak install -y flathub it.mijorus.gearlever
@@ -223,10 +218,18 @@ dnf group remove kde-pim -y
 
 color_echo "yellow" "Removing KDE apps"
 dnf mark dependency plasma-browser-integration
-dnf remove kamoso mediawriter elisa-player kcharselect kcolorchooser dragon kmines kmahjongg kpat kmouth kolourpaint neochat firefox khelpcenter plasma-welcome -y 
+dnf remove kamoso mediawriter elisa-player kcharselect kcolorchooser dragon kmines kmahjongg kpat kmouth kolourpaint neochat firefox khelpcenter plasma-welcome kwrite -y 
 
 color_echo "yellow" "Installing necessary apps"
 
+# Install Kate
+dnf install -y kate
+
+# Install WebApp
+flatpak install -y flathub org.pvermeer.WebAppHub
+
+# Install GoPeed
+flatpak install -y flathub com.gopeed.Gopeed
 
 # Install Termius
 flatpak install -y flathub com.termius.Termius
@@ -259,15 +262,13 @@ flatpak install -y flathub io.github.flattool.Warehouse
 # Install Calibre
 dnf install calibre -y
 
-# Install Ente Auth
-flatpak install -y flathub io.ente.auth
 
 # Install Pomodorolm
 flatpak install -y flathub org.jousse.vincent.Pomodorolm
 
 
 # Download various files
-wget -O ~/Scaricati/Vesktop https://vencord.dev/download/vesktop/amd64/appimage
+
 wget -O ~/Scaricati/DolbyDynamic https://stuff.kurz.pw/arch/P14s_G4/Speakers/impulse-dynamic.wav
 
 # Before finishing, ensure we're in a safe directory
@@ -294,20 +295,21 @@ le seguenti applicazioni tramite GearLever.
 Per favore, recati sui rispettivi repository GitHub ufficiali, scarica
 l'ultima release in formato AppImage e importala in GearLever:
 
-  1. Vesktop 
-     (dal GitHub ufficiale di Vencord/Vesktop)
-
-  2. Pear Desktop / YouTube Music 
+  1. Pear Desktop / YouTube Music 
      (dal GitHub ufficiale del progetto)
 
-  3. Obsidian 
+  2. Obsidian 
      (dal GitHub ufficiale di Obsidian)
-  
-  4. Motrix
-     (dal GitHub ufficiale di Motrix)
 
 Una volta scaricati i file, apri GearLever e trascinali all'interno 
 per integrarli comodamente nel menu delle applicazioni.
+
+Per questi programmi usare le rispettive WebApp tramite WebHubApp:
+
+    1. Ente Auth
+
+    2. Discord (con estensione Vesktop sul browser)
+ 
         
 QUESTO POST REBOOT!!!!
 - Aggiustare tutte le impostazioni Plasma
