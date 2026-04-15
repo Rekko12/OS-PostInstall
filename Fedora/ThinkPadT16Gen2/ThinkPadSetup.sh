@@ -147,7 +147,7 @@ dnf install -y @virtualization
 # App Installation
 # Install essential applications
 color_echo "yellow" "Installing essential applications..."
-dnf install -y btop inxi fastfetch unzip unrar git wget curl man tldr
+dnf install -y btop inxi fastfetch unzip unrar git wget curl man-pages tldr
 color_echo "green" "Essential applications installed successfully."
 
 # Install Internet & Communication applications
