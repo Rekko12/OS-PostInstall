@@ -147,7 +147,7 @@ dnf install -y @virtualization
 # App Installation
 # Install essential applications
 color_echo "yellow" "Installing essential applications..."
-dnf install -y btop inxi fastfetch unzip unrar git wget curl man-pages tldr
+dnf install -y btop inxi fastfetch unzip unrar git wget curl man-pages tldr java-25-openjdk
 color_echo "green" "Essential applications installed successfully."
 
 # Install Internet & Communication applications
@@ -268,7 +268,8 @@ flatpak install -y flathub org.jousse.vincent.Pomodorolm
 
 
 # Download various files
-
+mkdir ~/AppImages
+mkdir ~/Distrobox
 wget -O ~/Scaricati/DolbyDynamic https://stuff.kurz.pw/arch/P14s_G4/Speakers/impulse-dynamic.wav
 
 # Before finishing, ensure we're in a safe directory
