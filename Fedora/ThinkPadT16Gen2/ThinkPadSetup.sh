@@ -147,29 +147,21 @@ dnf install -y @virtualization
 # App Installation
 # Install essential applications
 color_echo "yellow" "Installing essential applications..."
-dnf install -y btop inxi fastfetch unzip unrar git wget curl man-pages tldr java-25-openjdk
+dnf install -y btop inxi fastfetch unzip unrar git wget curl man-pages tldr 
 color_echo "green" "Essential applications installed successfully."
 
 # Install Internet & Communication applications
 color_echo "yellow" "Installing Brave..."
-dnf install -y dnf-plugins-core
-if command -v dnf4 &>/dev/null; then
-  dnf4 config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-else
-  dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-fi
-rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-dnf install -y brave-browser
+flatpak install -y flathub com.brave.Browser
 color_echo "green" "Brave installed successfully."
 color_echo "yellow" "Installing LibreWolf..."
-curl -fsSL https://repo.librewolf.net/librewolf.repo | pkexec tee /etc/yum.repos.d/librewolf.repo
-dnf install -y librewolf
+flatpak install -y flathub io.gitlab.librewolf-community
 color_echo "green" "LibreWolf installed successfully."
 color_echo "yellow" "Installing Betterbird..."
 flatpak install -y flathub eu.betterbird.Betterbird
 color_echo "green" "Betterbird installed successfully."
 color_echo "yellow" "Installing Telegram Desktop..."
-dnf install -y telegram-desktop
+flatpak install -y flathub org.telegram.desktop
 color_echo "green" "Telegram Desktop installed successfully."
 
 # Install Coding and DevOps applications
@@ -187,10 +179,10 @@ color_echo "green" "Visual Studio Code installed successfully."
 
 # Install Media & Graphics applications
 color_echo "yellow" "Installing VLC..."
-dnf install -y vlc
+flatpak install -y flathub org.videolan.VLC
 color_echo "green" "VLC installed successfully."
 color_echo "yellow" "Installing OBS Studio..."
-dnf install -y obs-studio
+flatpak install -y flathub com.obsproject.Studio
 color_echo "green" "OBS Studio installed successfully."
 
 # Install Remote Networking applications
@@ -228,8 +220,8 @@ dnf install -y kate
 # Install WebApp
 flatpak install -y flathub org.pvermeer.WebAppHub
 
-# Install GoPeed
-flatpak install -y flathub com.gopeed.Gopeed
+# Install GoPeed (rimosso temporaneamente perchè credo di smettere di usare download manager)
+# flatpak install -y flathub com.gopeed.Gopeed
 
 # Install Termius
 flatpak install -y flathub com.termius.Termius
@@ -244,7 +236,7 @@ flatpak install -y flathub com.rtosta.zapzap
 flatpak install -y flathub com.moonlight_stream.Moonlight
 
 # Install Distrobox and DistroShelf
-dnf install distrobox -y
+dnf install -y distrobox
 flatpak install -y com.ranfdev.DistroShelf
 
 # Install LocalSend
@@ -260,8 +252,7 @@ flatpak install -y flathub io.github.alainm23.planify
 flatpak install -y flathub io.github.flattool.Warehouse
 
 # Install Calibre
-dnf install calibre -y
-
+dnf install -y calibre 
 
 # Install Pomodorolm
 flatpak install -y flathub org.jousse.vincent.Pomodorolm
