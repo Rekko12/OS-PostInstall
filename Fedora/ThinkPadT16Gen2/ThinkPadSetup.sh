@@ -255,9 +255,9 @@ flatpak install -y flathub org.jousse.vincent.Pomodorolm
 
 
 # Download various files
-mkdir -p "$ACTUAL_HOME/AppImages"
-mkdir -p "$ACTUAL_HOME/Distrobox"
-wget -O "$ACTUAL_HOME/Scaricati/DolbyDynamic" https://stuff.kurz.pw/arch/P14s_G4/Speakers/impulse-dynamic.wav
+sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/AppImages"
+sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/Distrobox"
+sudo -u $ACTUAL_USER wget -O "$ACTUAL_HOME/Scaricati/DolbyDynamic" https://stuff.kurz.pw/arch/P14s_G4/Speakers/impulse-dynamic.wav
 
 # Before finishing, ensure we're in a safe directory
 cd /tmp || cd $ACTUAL_HOME || cd /
