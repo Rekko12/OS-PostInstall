@@ -198,10 +198,6 @@ color_echo "green" "Gear Lever installed successfully."
 # Customization
 
 # Custom user-defined commands
-# Custom user-defined commands
-color_echo "yellow" "Disabling NetworkManager-wait-online"
-systemctl disable NetworkManager-wait-online.service
-
 color_echo "yellow" "Remove Brave Bloat"
 bash <(curl -s https://raw.githubusercontent.com/Rekko12/brave-debloatinator/refs/heads/main/brave-bullshitinator-linux-install.sh)
 
@@ -284,8 +280,6 @@ DA FARE PRE REBOOT!!!!
 Per completare la configurazione del sistema, è necessario installare 
 le seguenti applicazioni tramite GearLever. 
 
-Per favore, recati sui rispettivi repository GitHub ufficiali, scarica
-l'ultima release in formato AppImage e importala in GearLever:
 
   1. Pear Desktop / YouTube Music 
      (dal GitHub ufficiale del progetto)
