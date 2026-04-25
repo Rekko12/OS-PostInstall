@@ -114,7 +114,7 @@ color_echo "yellow" "Replacing Fedora Flatpak Repo with Flathub..."
 dnf install -y flatpak
 flatpak remote-delete fedora --force || true
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-sudo flatpak repair
+flatpak repair
 flatpak update
 
 # Check and apply firmware updates to improve hardware compatibility and performance
@@ -166,13 +166,13 @@ color_echo "green" "Telegram Desktop installed successfully."
 
 # Install Coding and DevOps applications
 color_echo "yellow" "Installing Visual Studio Code..."
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]
 name=Visual Studio Code
 baseurl=https://packages.microsoft.com/yumrepos/vscode
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc" | tee /etc/yum.repos.d/vscode.repo > /dev/null
 dnf check-update
 dnf install -y code
 color_echo "green" "Visual Studio Code installed successfully."
@@ -255,9 +255,9 @@ flatpak install -y flathub org.jousse.vincent.Pomodorolm
 
 
 # Download various files
-mkdir ~/AppImages
-mkdir ~/Distrobox
-wget -O ~/Scaricati/DolbyDynamic https://stuff.kurz.pw/arch/P14s_G4/Speakers/impulse-dynamic.wav
+mkdir -p "$ACTUAL_HOME/AppImages"
+mkdir -p "$ACTUAL_HOME/Distrobox"
+wget -O "$ACTUAL_HOME/Scaricati/DolbyDynamic" https://stuff.kurz.pw/arch/P14s_G4/Speakers/impulse-dynamic.wav
 
 # Before finishing, ensure we're in a safe directory
 cd /tmp || cd $ACTUAL_HOME || cd /
