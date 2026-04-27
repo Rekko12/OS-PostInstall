@@ -101,7 +101,7 @@ hostnamectl set-hostname ThinkPadEma
 # Optimize DNF package manager for faster downloads and efficient updates
 color_echo "yellow" "Configuring DNF Package Manager..."
 backup_file "/etc/dnf/dnf.conf"
-sed -i '/^\[main\]/a max_parallel_downloads=20\nfastestmirror=True\nminspeed=5M' /etc/dnf/dnf.conf
+sed -i '/^\[main\]/a max_parallel_downloads=20\nfastestmirror=True' /etc/dnf/dnf.conf
 dnf -y install dnf-plugins-core
 
 # Enable and configure automatic system updates to enhance security and stability
@@ -205,9 +205,8 @@ color_echo "yellow" "Removing KDE apps"
 dnf mark dependency plasma-browser-integration
 dnf remove kamoso mediawriter elisa-player kcharselect kcolorchooser dragon kmines kmahjongg kpat kmouth kolourpaint neochat firefox khelpcenter plasma-welcome kwrite -y 
 
-color_echo "yellow" "Installing necessary apps"
+color_echo "yellow" "Installing various apps"
 
- 
 # Install Kate
 dnf install -y kate
 
@@ -223,15 +222,11 @@ flatpak install -y flathub me.proton.Pass
 # Install Moonlight
 flatpak install -y flathub com.moonlight_stream.Moonlight
 
-# Install Distrobox and DistroShelf
+# Install Distrobox 
 dnf install -y distrobox
-flatpak install -y com.ranfdev.DistroShelf
 
 # Install LocalSend
 flatpak install -y flathub org.localsend.localsend_app
-
-# Install GetEduroam
-flatpak install -y flathub app.eduroam.geteduroam
 
 # Install Planify
 flatpak install -y flathub io.github.alainm23.planify
@@ -245,7 +240,7 @@ dnf install -y calibre
 # Install Pomodorolm
 flatpak install -y flathub org.jousse.vincent.Pomodorolm
 
-# Install 
+# Install Ferdium
 flatpak install -y flathub org.ferdium.Ferdium
 
 # Download various files
@@ -275,7 +270,7 @@ ATTENZIONE: INSTALLAZIONI MANUALI RICHIESTE
 ======================================================================
 DA FARE PRE REBOOT!
 Per completare la configurazione del sistema, è necessario installare 
-le seguenti applicazioni tramite GearLever. 
+le seguenti applicazioni tramite GearLever e configurare i vari repository . 
 
   1. Pear Desktop / YouTube Music 
      (dal GitHub ufficiale del progetto)
@@ -286,14 +281,11 @@ le seguenti applicazioni tramite GearLever.
   3. Vesktop
      (dal Github ufficiale di Vestkop)
 
-Una volta scaricati i file, apri GearLever e trascinali all'interno 
-per integrarli comodamente nel menu delle applicazioni.
-
 Bisogna aggiungere a Ferdium le seguenti app:
-Personali:
+Workspace Personale:
 - Telegram
 - Whatsapp
-Studio:
+Workspace Studio:
 - Teams
 QUESTO POST REBOOT!
 - Aggiustare tutte le impostazioni Plasma
