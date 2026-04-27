@@ -160,9 +160,6 @@ color_echo "green" "LibreWolf installed successfully."
 color_echo "yellow" "Installing Betterbird..."
 flatpak install -y flathub eu.betterbird.Betterbird
 color_echo "green" "Betterbird installed successfully."
-color_echo "yellow" "Installing Telegram Desktop..."
-flatpak install -y flathub org.telegram.desktop
-color_echo "green" "Telegram Desktop installed successfully."
 
 # Install Coding and DevOps applications
 color_echo "yellow" "Installing Visual Studio Code..."
@@ -213,20 +210,12 @@ color_echo "yellow" "Installing necessary apps"
 # Install Kate
 dnf install -y kate
 
-# Install WebApp
-flatpak install -y flathub org.pvermeer.WebAppHub
-
-# Install GoPeed (rimosso temporaneamente perchè credo di smettere di usare download manager)
-# flatpak install -y flathub com.gopeed.Gopeed
-
 # Install Termius
 flatpak install -y flathub com.termius.Termius
 
 # Install EasyEffect
 flatpak install -y flathub com.github.wwmm.easyeffects
 
-# Install ZapZap
-flatpak install -y flathub com.rtosta.zapzap
 
 # Install Moonlight
 flatpak install -y flathub com.moonlight_stream.Moonlight
@@ -253,6 +242,8 @@ dnf install -y calibre
 # Install Pomodorolm
 flatpak install -y flathub org.jousse.vincent.Pomodorolm
 
+# Install 
+flatpak install -y flathub org.ferdium.Ferdium
 
 # Download various files
 sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/AppImages"
@@ -276,10 +267,9 @@ color_echo "green" "All steps completed. Enjoy!"
 echo -e "\e[31m======================================================================
 ATTENZIONE: INSTALLAZIONI MANUALI RICHIESTE
 ======================================================================
-DA FARE PRE REBOOT!!!!
+DA FARE PRE REBOOT!
 Per completare la configurazione del sistema, è necessario installare 
 le seguenti applicazioni tramite GearLever. 
-
 
   1. Pear Desktop / YouTube Music 
      (dal GitHub ufficiale del progetto)
@@ -290,16 +280,22 @@ le seguenti applicazioni tramite GearLever.
 Una volta scaricati i file, apri GearLever e trascinali all'interno 
 per integrarli comodamente nel menu delle applicazioni.
 
-Per questi programmi usare le rispettive WebApp tramite WebHubApp:
-
-    1. Ente Auth
-
-    2. Discord (con estensione Vesktop sul browser)
- 
-        
-QUESTO POST REBOOT!!!!
+Bisogna aggiungere a Ferdium le seguenti app:
+Personali:
+- Discord
+- Ente Auth
+- Proton Pass
+- Telegram
+- Whatsapp
+Studio:
+- Teams
+- Outlook
+- Esse3
+- E-Learning
+QUESTO POST REBOOT!
 - Aggiustare tutte le impostazioni Plasma
 - Aggiustare gli speaker con il profilo EasyEffect del T14G4 (preso da ArchWiki)
+
 ======================================================================\e[0m"
 
 # Prompt for reboot
