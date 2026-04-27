@@ -282,16 +282,10 @@ per integrarli comodamente nel menu delle applicazioni.
 
 Bisogna aggiungere a Ferdium le seguenti app:
 Personali:
-- Discord
-- Ente Auth
-- Proton Pass
 - Telegram
 - Whatsapp
 Studio:
 - Teams
-- Outlook
-- Esse3
-- E-Learning
 QUESTO POST REBOOT!
 - Aggiustare tutte le impostazioni Plasma
 - Aggiustare gli speaker con il profilo EasyEffect del T14G4 (preso da ArchWiki)
