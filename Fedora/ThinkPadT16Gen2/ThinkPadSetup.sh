@@ -207,9 +207,7 @@ dnf remove kamoso mediawriter elisa-player kcharselect kcolorchooser dragon kmin
 
 color_echo "yellow" "Installing necessary apps"
 
-# Install Discord
-dnf install -y discord
-
+ 
 # Install Kate
 dnf install -y kate
 
@@ -219,6 +217,8 @@ flatpak install -y flathub com.termius.Termius
 # Install EasyEffect
 flatpak install -y flathub com.github.wwmm.easyeffects
 
+# Install ProtonPass
+flatpak install -y flathub me.proton.Pass
 
 # Install Moonlight
 flatpak install -y flathub com.moonlight_stream.Moonlight
@@ -253,6 +253,9 @@ sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/AppImages"
 sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/Distrobox"
 sudo -u $ACTUAL_USER wget -O "$ACTUAL_HOME/Scaricati/DolbyDynamic" https://stuff.kurz.pw/arch/P14s_G4/Speakers/impulse-dynamic.wav
 
+# Alias add for gear lever file
+alias gearlever='flatpak run it.mijorus.gearlever'
+
 # Before finishing, ensure we're in a safe directory
 cd /tmp || cd $ACTUAL_HOME || cd /
 
@@ -279,6 +282,9 @@ le seguenti applicazioni tramite GearLever.
 
   2. Obsidian 
      (dal GitHub ufficiale di Obsidian)
+
+  3. Vesktop
+     (dal Github ufficiale di Vestkop)
 
 Una volta scaricati i file, apri GearLever e trascinali all'interno 
 per integrarli comodamente nel menu delle applicazioni.
