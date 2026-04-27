@@ -207,6 +207,9 @@ dnf remove kamoso mediawriter elisa-player kcharselect kcolorchooser dragon kmin
 
 color_echo "yellow" "Installing necessary apps"
 
+# Install Discord
+dnf install -y discord
+
 # Install Kate
 dnf install -y kate
 
