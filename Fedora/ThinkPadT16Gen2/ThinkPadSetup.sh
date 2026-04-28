@@ -235,7 +235,7 @@ flatpak install -y flathub io.github.alainm23.planify
 flatpak install -y flathub io.github.flattool.Warehouse
 
 # Install Calibre
-dnf install -y calibre 
+sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
 
 # Install Pomodorolm
 flatpak install -y flathub org.jousse.vincent.Pomodorolm
