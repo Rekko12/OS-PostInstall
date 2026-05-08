@@ -119,14 +119,14 @@ flatpak remote-delete fedora --force || true
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak repair
-flatpak update
+flatpak update -y
 
 # Check and apply firmware updates to improve hardware compatibility and performance
 color_echo "yellow" "Checking for firmware updates..."
 fwupdmgr refresh --force
 fwupdmgr get-devices # Lists devices with available updates.
 fwupdmgr get-updates # Fetches list of available updates.
-fwupdmgr update
+fwupdmgr update -y
 
 # Enable RPM Fusion repositories to access additional software packages and codecs
 color_echo "yellow" "Enabling RPM Fusion repositories..."
@@ -137,8 +137,8 @@ dnf4 group install core -y
 # Install multimedia codecs to enhance multimedia capabilities
 color_echo "yellow" "Installing multimedia codecs..."
 dnf4 group install multimedia -y
-dnf swap 'ffmpeg-free' 'ffmpeg' --allowerasing # Switch to full FFMPEG.
-dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin # Installs gstreamer components. Required if you use Gnome Videos and other dependent applications.
+dnf swap 'ffmpeg-free' 'ffmpeg' --allowerasing -y # Switch to full FFMPEG.
+dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y # Installs gstreamer components. Required if you use Gnome Videos and other dependent applications.
 dnf group install -y sound-and-video # Installs useful Sound and Video complementary packages.
 
 # Install Hardware Accelerated Codecs for AMD GPUs. This improves video playback and encoding performance on systems with AMD graphics.
@@ -254,7 +254,7 @@ flatpak install -y flathub org.jousse.vincent.Pomodorolm
 # Install Ferdium
 flatpak install -y flathub org.ferdium.Ferdium
 # Install Fuse-Libs
-dnf in fuse-libs
+dnf in fuse-libs -y
 # Download various files
 sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/AppImages"
 sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/Distrobox"
