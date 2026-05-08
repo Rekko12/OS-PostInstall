@@ -137,8 +137,8 @@ dnf update @sound-and-video -y
 
 # Install Hardware Accelerated Codecs for AMD GPUs. This improves video playback and encoding performance on systems with AMD graphics.
 color_echo "yellow" "Installing AMD Hardware Accelerated Codecs..."
-dnf swap mesa-va-drivers mesa-va-drivers-freeworld -y
-dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld -y
+sudo dnf install mesa-va-drivers-freeworld
+sudo dnf install mesa-va-drivers-freeworld.i686
 
 # Install virtualization tools to enable virtual machines and containerization
 color_echo "yellow" "Installing virtualization tools..."
