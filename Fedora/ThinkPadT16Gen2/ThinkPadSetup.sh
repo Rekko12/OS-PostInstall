@@ -91,7 +91,7 @@ read -p "Press Enter to continue or CTRL+C to cancel..."
 
 # System Upgrade
 color_echo "blue" "Performing system upgrade... This may take a while..."
-dnf upgrade -y
+dnf -y update
 
 # System Configuration
 # Set the system hostname to uniquely identify the machine on the network
@@ -116,31 +116,34 @@ systemctl enable --now dnf-automatic.timer
 color_echo "yellow" "Replacing Fedora Flatpak Repo with Flathub..."
 dnf install -y flatpak
 flatpak remote-delete fedora --force || true
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak repair
 flatpak update
 
 # Check and apply firmware updates to improve hardware compatibility and performance
 color_echo "yellow" "Checking for firmware updates..."
 fwupdmgr refresh --force
-fwupdmgr get-updates
-fwupdmgr update -y
+fwupdmgr get-devices # Lists devices with available updates.
+fwupdmgr get-updates # Fetches list of available updates.
+fwupdmgr update
 
 # Enable RPM Fusion repositories to access additional software packages and codecs
 color_echo "yellow" "Enabling RPM Fusion repositories..."
-dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-dnf update @core -y
+dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
+dnf group upgrade core -y
+dnf4 group install core -y
 
 # Install multimedia codecs to enhance multimedia capabilities
 color_echo "yellow" "Installing multimedia codecs..."
-dnf4 group install multimedia
+dnf4 group install multimedia -y
 dnf swap 'ffmpeg-free' 'ffmpeg' --allowerasing # Switch to full FFMPEG.
 dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin # Installs gstreamer components. Required if you use Gnome Videos and other dependent applications.
 dnf group install -y sound-and-video # Installs useful Sound and Video complementary packages.
 
 # Install Hardware Accelerated Codecs for AMD GPUs. This improves video playback and encoding performance on systems with AMD graphics.
 color_echo "yellow" "Installing AMD Hardware Accelerated Codecs..."
+dnf install ffmpeg-libs libva libva-utils -y
 dnf install mesa-va-drivers-freeworld -y
 dnf install mesa-va-drivers-freeworld.i686 -y
 
@@ -250,7 +253,8 @@ flatpak install -y flathub org.jousse.vincent.Pomodorolm
 
 # Install Ferdium
 flatpak install -y flathub org.ferdium.Ferdium
-
+# Install Fuse-Libs
+dnf in fuse-libs
 # Download various files
 sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/AppImages"
 sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/Distrobox"
