@@ -233,9 +233,6 @@ flatpak install -y flathub me.proton.Pass
 # Install Moonlight
 flatpak install -y flathub com.moonlight_stream.Moonlight
 
-# Install Distrobox 
-dnf install -y distrobox
-
 # Install LocalSend
 flatpak install -y flathub org.localsend.localsend_app
 
@@ -253,8 +250,16 @@ flatpak install -y flathub org.jousse.vincent.Pomodorolm
 
 # Install Ferdium
 flatpak install -y flathub org.ferdium.Ferdium
+
+# Install Kid3
+flatpak install -y flathub org.kde.kid3
+
+# Install Gopeed
+flatpak install -y flathub com.gopeed.Gopeed
+
 # Install Fuse-Libs
 dnf in fuse-libs -y
+
 # Download various files
 sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/AppImages"
 sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/Distrobox"
