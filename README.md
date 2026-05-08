@@ -5,7 +5,7 @@ Questa è una repo per aiutarmi a rienstallare i vari sistemi operativi in diver
 Attualmente ne uso 2:
 
 - Fedora Workstation KDE Plasma
-- Windows 11
+- VM per development
 
 In tutti e due i casi i sistemi sono esenti da bloat inutile
 
