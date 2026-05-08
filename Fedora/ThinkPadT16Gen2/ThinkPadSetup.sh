@@ -110,7 +110,19 @@ dnf -y install dnf-plugins-core
 # Enable and configure automatic system updates to enhance security and stability
 color_echo "yellow" "Enabling DNF autoupdate..."
 dnf install dnf-automatic -y
+color_echo "yellow" "Creating /etc/dnf/automatic.conf..."
+
+echo -e "[commands]
+upgrade_type = default
+random_sleep = 0
+download_updates = yes
+apply_updates = yes
+
+[emitters]
+emit_via = stdio" | tee /etc/dnf/automatic.conf > /dev/null
+
 systemctl enable --now dnf-automatic.timer
+systemctl start dnf-automatic.timer
 
 # Replace Fedora Flatpak Repo with Flathub for better package management and apps stability
 color_echo "yellow" "Replacing Fedora Flatpak Repo with Flathub..."
