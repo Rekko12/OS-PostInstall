@@ -98,6 +98,9 @@ dnf upgrade -y
 color_echo "yellow" "Setting hostname..."
 hostnamectl set-hostname ThinkPadEma
 
+# Disable NetworkManagerWait
+systemctl disable NetworkManager-wait-online.service
+
 # Optimize DNF package manager for faster downloads and efficient updates
 color_echo "yellow" "Configuring DNF Package Manager..."
 backup_file "/etc/dnf/dnf.conf"
@@ -131,14 +134,19 @@ dnf update @core -y
 
 # Install multimedia codecs to enhance multimedia capabilities
 color_echo "yellow" "Installing multimedia codecs..."
-dnf swap ffmpeg-free ffmpeg --allowerasing -y
-dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y
-dnf update @sound-and-video -y
+dnf4 group install multimedia
+dnf swap 'ffmpeg-free' 'ffmpeg' --allowerasing # Switch to full FFMPEG.
+dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin # Installs gstreamer components. Required if you use Gnome Videos and other dependent applications.
+dnf group install -y sound-and-video # Installs useful Sound and Video complementary packages.
 
 # Install Hardware Accelerated Codecs for AMD GPUs. This improves video playback and encoding performance on systems with AMD graphics.
 color_echo "yellow" "Installing AMD Hardware Accelerated Codecs..."
-sudo dnf install mesa-va-drivers-freeworld
-sudo dnf install mesa-va-drivers-freeworld.i686
+dnf install mesa-va-drivers-freeworld -y
+dnf install mesa-va-drivers-freeworld.i686 -y
+
+# Install H264 for Mozilla
+dnf install openh264 gstreamer1-plugin-openh264 mozilla-openh264 -y
+dnf config-manager setopt fedora-cisco-openh264.enabled=1
 
 # Install virtualization tools to enable virtual machines and containerization
 color_echo "yellow" "Installing virtualization tools..."
