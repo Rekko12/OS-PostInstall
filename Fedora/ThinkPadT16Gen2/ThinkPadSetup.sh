@@ -128,7 +128,7 @@ systemctl start dnf-automatic.timer
 color_echo "yellow" "Replacing Fedora Flatpak Repo with Flathub..."
 dnf install -y flatpak
 flatpak remote-delete fedora --force || true
-flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak repair
 flatpak update -y
 
