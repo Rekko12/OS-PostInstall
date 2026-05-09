@@ -113,10 +113,8 @@ dnf install dnf-automatic -y
 color_echo "yellow" "Creating /etc/dnf/automatic.conf..."
 
 echo -e "[commands]
-upgrade_type = default
-random_sleep = 0
-download_updates = yes
 apply_updates = yes
+download_updates = yes
 
 [emitters]
 emit_via = stdio" | tee /etc/dnf/automatic.conf > /dev/null
