@@ -145,6 +145,10 @@ color_echo "yellow" "Enabling RPM Fusion repositories..."
 dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 dnf group upgrade core -y
 dnf4 group install core -y
+dnf install rpmfusion-free-release-tainted -y
+dnf install libdvdcss -y
+dnf install rpmfusion-nonfree-release-tainted -y
+dnf --repo=rpmfusion-nonfree-tainted install "*-firmware" -y
 
 # Install multimedia codecs to enhance multimedia capabilities
 color_echo "yellow" "Installing multimedia codecs..."
