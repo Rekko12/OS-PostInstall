@@ -94,6 +94,12 @@ color_echo "blue" "Performing system upgrade... This may take a while..."
 dnf -y update
 
 # System Configuration
+# Enable TCP MTU Probing
+color_echo "yellow" "Enabling TCP MTU Probing..."
+echo "net.ipv4.tcp_mtu_probing = 1" | tee /etc/sysctl.d/99-mtu-probing.conf > /dev/null
+sysctl -p /etc/sysctl.d/99-mtu-probing.conf > /dev/null
+color_echo "green" "TCP MTU Probing enabled."
+
 # Set the system hostname to uniquely identify the machine on the network
 color_echo "yellow" "Setting hostname..."
 hostnamectl set-hostname ThinkPadEma
@@ -146,6 +152,19 @@ dnf install rpmfusion-free-release-tainted -y
 dnf install libdvdcss -y
 dnf install rpmfusion-nonfree-release-tainted -y
 dnf --repo=rpmfusion-nonfree-tainted install "*-firmware" -y
+
+# Enable Terra Repository (Fyra Labs)
+color_echo "yellow" "Enabling Terra repository..."
+dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+
+# Set priority to 100 for Terra repo
+color_echo "yellow" "Configuring Terra repository priority..."
+if [ -f "/etc/yum.repos.d/terra.repo" ]; then
+    sed -i '/^\[terra\]/a priority=100' /etc/yum.repos.d/terra.repo
+    color_echo "green" "Terra repository with 100 priority."
+else
+    color_echo "red" "ATTENZIONE: File terra.repo not found."
+fi
 
 # Install multimedia codecs to enhance multimedia capabilities
 color_echo "yellow" "Installing multimedia codecs..."
