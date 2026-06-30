@@ -299,7 +299,6 @@ dnf in fuse-libs -y
 
 # Download various files
 sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/AppImages"
-sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/Distrobox"
 sudo -u $ACTUAL_USER wget -O "$ACTUAL_HOME/Scaricati/DolbyDynamic" https://stuff.kurz.pw/arch/P14s_G4/Speakers/impulse-dynamic.wav
 
 # Alias add for gear lever file
