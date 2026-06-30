@@ -245,9 +245,12 @@ color_echo "yellow" "Removing KDE-PIM group"
 dnf group remove kde-pim -y
 
 color_echo "yellow" "Removing KDE apps"
-dnf remove kamoso mediawriter elisa-player kcharselect kcolorchooser dragon kmines kmahjongg kpat kmouth kolourpaint neochat firefox khelpcenter plasma-welcome kwrite -y 
+dnf remove kamoso elisa-player kcharselect kcolorchooser dragon kmines kmahjongg kpat kmouth kolourpaint neochat firefox khelpcenter plasma-welcome kwrite -y
 
 color_echo "yellow" "Installing various apps"
+
+# Install Vesktop
+dnf install -y vesktop
 
 # Install Kate
 dnf install -y kate
@@ -328,16 +331,7 @@ le seguenti applicazioni tramite GearLever e configurare i vari repository .
 
   2. Obsidian 
      (dal GitHub ufficiale di Obsidian)
-
-  3. Vesktop
-     (dal Github ufficiale di Vestkop)
-
-Bisogna aggiungere a Ferdium le seguenti app:
-Workspace Personale:
-- Telegram
-- Whatsapp
-Workspace Studio:
-- Teams
+     
 QUESTO POST REBOOT!
 - Aggiustare tutte le impostazioni Plasma
 - Aggiustare gli speaker con il profilo EasyEffect del T14G4 (preso da ArchWiki)
