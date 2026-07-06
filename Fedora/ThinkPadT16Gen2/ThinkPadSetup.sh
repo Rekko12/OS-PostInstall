@@ -299,10 +299,14 @@ dnf in fuse-libs -y
 
 # Download various files
 sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/AppImages"
-sudo -u $ACTUAL_USER wget -O "$ACTUAL_HOME/Scaricati/DolbyDynamic" https://stuff.kurz.pw/arch/P14s_G4/Speakers/impulse-dynamic.wav
+sudo -u $ACTUAL_USER wget -O "$ACTUAL_HOME/Scaricati/DolbyDynamic.wav" https://stuff.kurz.pw/arch/P14s_G4/Speakers/impulse-dynamic.wav
 
-# Alias add for gear lever file
-alias gearlever='flatpak run it.mijorus.gearlever'
+# Persistent alias for gear lever
+color_echo "yellow" "Adding Gear Lever alias to .bashrc..."
+if ! grep -q "alias gearlever='flatpak run it.mijorus.gearlever'" "$ACTUAL_HOME/.bashrc"; then
+    echo "alias gearlever='flatpak run it.mijorus.gearlever'" >> "$ACTUAL_HOME/.bashrc"
+    chown $ACTUAL_USER:$ACTUAL_USER "$ACTUAL_HOME/.bashrc"
+fi
 
 # Before finishing, ensure we're in a safe directory
 cd /tmp || cd $ACTUAL_HOME || cd /
