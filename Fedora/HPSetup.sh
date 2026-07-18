@@ -257,9 +257,6 @@ dnf install -y kate
 # Install Termius
 flatpak install -y flathub com.termius.Termius
 
-# Install EasyEffect
-flatpak install -y flathub com.github.wwmm.easyeffects
-
 # Install ProtonPass
 flatpak install -y flathub me.proton.Pass
 
