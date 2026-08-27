@@ -113,21 +113,6 @@ backup_file "/etc/dnf/dnf.conf"
 sed -i '/^\[main\]/a max_parallel_downloads=20\nfastestmirror=True' /etc/dnf/dnf.conf
 dnf -y install dnf-plugins-core
 
-# Enable and configure automatic system updates to enhance security and stability
-color_echo "yellow" "Enabling DNF autoupdate..."
-dnf install dnf-automatic -y
-color_echo "yellow" "Creating /etc/dnf/automatic.conf..."
-
-echo -e "[commands]
-apply_updates = yes
-download_updates = yes
-
-[emitters]
-emit_via = stdio" | tee /etc/dnf/automatic.conf > /dev/null
-
-systemctl enable --now dnf-automatic.timer
-systemctl start dnf-automatic.timer
-
 # Replace Fedora Flatpak Repo with Flathub for better package management and apps stability
 color_echo "yellow" "Replacing Fedora Flatpak Repo with Flathub..."
 dnf install -y flatpak
