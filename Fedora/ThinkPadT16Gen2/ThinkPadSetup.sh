@@ -189,19 +189,6 @@ color_echo "yellow" "Installing Betterbird..."
 flatpak install -y flathub eu.betterbird.Betterbird
 color_echo "green" "Betterbird installed successfully."
 
-# Install Coding and DevOps applications
-color_echo "yellow" "Installing Visual Studio Code..."
-rpm --import https://packages.microsoft.com/keys/microsoft.asc
-echo -e "[code]
-name=Visual Studio Code
-baseurl=https://packages.microsoft.com/yumrepos/vscode
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.microsoft.com/keys/microsoft.asc" | tee /etc/yum.repos.d/vscode.repo > /dev/null
-dnf check-update
-dnf install -y code
-color_echo "green" "Visual Studio Code installed successfully."
-
 # Install Media & Graphics applications
 color_echo "yellow" "Installing VLC..."
 flatpak install -y flathub org.videolan.VLC
@@ -278,6 +265,9 @@ flatpak install -y flathub org.kde.kid3
 
 # Install Gopeed
 flatpak install -y flathub com.gopeed.Gopeed
+
+# Install Media Downloader
+flatpak install -y io.github.mhogomchungu.media-downloader
 
 # Install Fuse-Libs
 dnf in fuse-libs -y
