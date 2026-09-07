@@ -102,10 +102,41 @@ color_echo "green" "TCP MTU Probing enabled."
 
 # Set the system hostname to uniquely identify the machine on the network
 color_echo "yellow" "Setting hostname..."
-hostnamectl set-hostname ThinkPadEma
+hostnamectl set-hostname Thinkpad-Ema
+
+# Update /etc/hosts with the machine's hostname entries
+color_echo "yellow" "Configuring /etc/hosts..."
+backup_file "/etc/hosts"
+if grep -q '^127\.0\.0\.1' /etc/hosts; then
+    sed -i 's/^127\.0\.0\.1.*/127.0.0.1   Thinkpad-Ema localhost localhost.localdomain localhost4 localhost4.localdomain4/' /etc/hosts
+else
+    sed -i '1i 127.0.0.1   Thinkpad-Ema localhost localhost.localdomain localhost4 localhost4.localdomain4' /etc/hosts
+fi
+if grep -q '^::1' /etc/hosts; then
+    sed -i 's/^::1.*/::1         Thinkpad-Ema localhost localhost.localdomain localhost6 localhost6.localdomain6/' /etc/hosts
+else
+    sed -i '2i ::1         Thinkpad-Ema localhost localhost.localdomain localhost6 localhost6.localdomain6' /etc/hosts
+fi
+handle_error "Failed to update /etc/hosts"
+color_echo "green" "/etc/hosts updated."
 
 # Disable NetworkManagerWait
 systemctl disable NetworkManager-wait-online.service
+
+# Install Fix-NM-WiFi-Eth: auto-toggles WiFi off/on when an Ethernet cable is plugged/unplugged
+color_echo "yellow" "Installing Fix-NM-WiFi-Eth..."
+if ! command -v git &> /dev/null; then
+    color_echo "yellow" "git not found, installing it..."
+    dnf install -y git
+    handle_error "Failed to install git"
+fi
+FIX_NM_TMP=$(sudo -u $ACTUAL_USER mktemp -d)
+sudo -u $ACTUAL_USER git clone https://github.com/Rekko12/Fix-NM-WiFi-Eth.git "$FIX_NM_TMP/Fix-NM-WiFi-Eth"
+handle_error "Failed to clone Fix-NM-WiFi-Eth repository"
+(cd "$FIX_NM_TMP/Fix-NM-WiFi-Eth" && bash install.sh)
+handle_error "Failed to install Fix-NM-WiFi-Eth"
+rm -rf "$FIX_NM_TMP"
+color_echo "green" "Fix-NM-WiFi-Eth installed successfully."
 
 # Optimize DNF package manager for faster downloads and efficient updates
 color_echo "yellow" "Configuring DNF Package Manager..."
