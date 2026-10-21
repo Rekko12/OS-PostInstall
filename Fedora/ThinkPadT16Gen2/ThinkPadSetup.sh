@@ -166,7 +166,7 @@ color_echo "yellow" "Checking for firmware updates..."
 fwupdmgr refresh --force
 fwupdmgr get-devices # Lists devices with available updates.
 fwupdmgr get-updates # Fetches list of available updates.
-fwupdmgr update -y
+fwupdmgr update -y --no-reboot-check
 
 # Enable RPM Fusion repositories to access additional software packages and codecs
 color_echo "yellow" "Enabling RPM Fusion repositories..."
@@ -193,16 +193,19 @@ fi
 
 # Install multimedia codecs to enhance multimedia capabilities
 color_echo "yellow" "Installing multimedia codecs..."
-dnf4 group install multimedia -y
-dnf swap 'ffmpeg-free' 'ffmpeg' --allowerasing -y # Switch to full FFMPEG.
-dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y # Installs gstreamer components. Required if you use Gnome Videos and other dependent applications.
-dnf group install -y sound-and-video # Installs useful Sound and Video complementary packages.
+dnf swap -y ffmpeg-free ffmpeg --allowerasing # Switch to full FFMPEG.
+dnf install -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin # GStreamer components, required by GNOME Videos and similar apps.
+dnf install -y @sound-and-video # Useful Sound and Video complementary packages.
 
 # Install Hardware Accelerated Codecs for AMD GPUs. This improves video playback and encoding performance on systems with AMD graphics.
 color_echo "yellow" "Installing AMD Hardware Accelerated Codecs..."
-dnf install ffmpeg-libs libva libva-utils -y
-dnf install mesa-va-drivers-freeworld -y
-dnf install mesa-va-drivers-freeworld.i686 -y
+dnf install -y ffmpeg-libs libva libva-utils
+dnf install -y mesa-va-drivers-freeworld
+dnf swap -y mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
+
+# Librerie di compatibilità a 32 bit (Steam e simili)
+dnf install -y mesa-va-drivers-freeworld.i686
+dnf swap -y mesa-vulkan-drivers.i686 mesa-vulkan-drivers-freeworld.i686
 
 # Install H264 for Mozilla
 dnf install openh264 gstreamer1-plugin-openh264 mozilla-openh264 -y
@@ -211,6 +214,7 @@ dnf config-manager setopt fedora-cisco-openh264.enabled=1
 # Install virtualization tools to enable virtual machines and containerization
 color_echo "yellow" "Installing virtualization tools..."
 dnf install -y @virtualization
+usermod -aG libvirt "$ACTUAL_USER"
 
 # App Installation
 # Install essential applications
@@ -251,13 +255,13 @@ color_echo "green" "Gear Lever installed successfully."
 
 # Custom user-defined commands
 color_echo "yellow" "Remove Brave Bloat"
-bash <(curl -s https://raw.githubusercontent.com/Rekko12/brave-debloatinator/refs/heads/main/brave-bullshitinator-linux-install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/Rekko12/brave-debloatinator/refs/heads/main/brave-bullshitinator-linux-install.sh)
 
 color_echo "yellow" "Removing KDE-PIM group"
 dnf group remove kde-pim -y
 
 color_echo "yellow" "Removing KDE apps"
-dnf remove kamoso elisa-player kcharselect kcolorchooser dragon kmines kmahjongg kpat kmouth kolourpaint neochat firefox khelpcenter plasma-welcome kwrite -y
+dnf remove kamoso elisa-player kcharselect kcolorchooser dragon kmines kmahjongg kpat kmouth kolourpaint neochat firefox khelpcenter plasma-welcome kwrite -y --skip-unavailable
 
 color_echo "yellow" "Installing various apps"
 
@@ -292,7 +296,7 @@ flatpak install -y flathub io.github.alainm23.planify
 flatpak install -y flathub io.github.flattool.Warehouse
 
 # Install Calibre
-sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
+wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
 
 # Install Pomodorolm
 flatpak install -y flathub org.jousse.vincent.Pomodorolm
@@ -307,7 +311,7 @@ flatpak install -y flathub org.kde.kid3
 flatpak install -y flathub com.gopeed.Gopeed
 
 # Install Media Downloader
-flatpak install -y io.github.mhogomchungu.media-downloader
+flatpak install -y flathub io.github.mhogomchungu.media-downloader
 
 # Install Fuse-Libs
 dnf in fuse-libs -y
