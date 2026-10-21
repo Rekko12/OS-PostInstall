@@ -89,6 +89,12 @@ echo "Don't run this script if you didn't build it yourself or don't know what i
 echo ""
 read -p "Press Enter to continue or CTRL+C to cancel..."
 
+# Optimize DNF package manager for faster downloads and efficient updates
+color_echo "yellow" "Configuring DNF Package Manager..."
+backup_file "/etc/dnf/dnf.conf"
+grep -q '^max_parallel_downloads' /etc/dnf/dnf.conf || sed -i '/^\[main\]/a max_parallel_downloads=20' /etc/dnf/dnf.conf
+dnf -y install dnf-plugins-core
+
 # System Upgrade
 color_echo "blue" "Performing system upgrade... This may take a while..."
 dnf -y update
@@ -146,12 +152,6 @@ EOF
 handle_error "Failed to create UCSI udev rule"
 udevadm control --reload-rules
 color_echo "green" "UCSI udev rule installed."
-
-# Optimize DNF package manager for faster downloads and efficient updates
-color_echo "yellow" "Configuring DNF Package Manager..."
-backup_file "/etc/dnf/dnf.conf"
-sed -i '/^\[main\]/a max_parallel_downloads=20\nfastestmirror=True' /etc/dnf/dnf.conf
-dnf -y install dnf-plugins-core
 
 # Replace Fedora Flatpak Repo with Flathub for better package management and apps stability
 color_echo "yellow" "Replacing Fedora Flatpak Repo with Flathub..."
@@ -314,7 +314,7 @@ flatpak install -y flathub com.gopeed.Gopeed
 flatpak install -y flathub io.github.mhogomchungu.media-downloader
 
 # Install Fuse-Libs
-dnf in fuse-libs -y
+dnf install -y fuse-libs 
 
 # Download various files
 sudo -u $ACTUAL_USER mkdir -p "$ACTUAL_HOME/AppImages"
