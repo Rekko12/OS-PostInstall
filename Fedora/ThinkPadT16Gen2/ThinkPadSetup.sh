@@ -138,6 +138,15 @@ handle_error "Failed to install Fix-NM-WiFi-Eth"
 rm -rf "$FIX_NM_TMP"
 color_echo "green" "Fix-NM-WiFi-Eth installed successfully."
 
+# Fix ThinkPad UCSI AC resync (udev rule)
+color_echo "yellow" "Installing ThinkPad UCSI resync udev rule..."
+tee /etc/udev/rules.d/99-thinkpad-ucsi-resync.rules > /dev/null << 'EOF'
+SUBSYSTEM=="power_supply", KERNEL=="ucsi-source-psy*", ACTION=="change", ENV{POWER_SUPPLY_ONLINE}=="1", PROGRAM="/usr/bin/bash -c 'for i in {1..40}; do grep -q 1 /sys/class/power_supply/AC/online 2>/dev/null && break; grep -q 0 /sys%p/online 2>/dev/null && break; sleep 0.05; done; cat /sys%p/online 2>/dev/null'", ENV{POWER_SUPPLY_ONLINE}="%c"
+EOF
+handle_error "Failed to create UCSI udev rule"
+udevadm control --reload-rules
+color_echo "green" "UCSI udev rule installed."
+
 # Optimize DNF package manager for faster downloads and efficient updates
 color_echo "yellow" "Configuring DNF Package Manager..."
 backup_file "/etc/dnf/dnf.conf"
