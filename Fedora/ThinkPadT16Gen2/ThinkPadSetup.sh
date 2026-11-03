@@ -307,9 +307,6 @@ flatpak install -y flathub org.ferdium.Ferdium
 # Install Kid3
 flatpak install -y flathub org.kde.kid3
 
-# Install Gopeed
-flatpak install -y flathub com.gopeed.Gopeed
-
 # Install Media Downloader
 flatpak install -y flathub io.github.mhogomchungu.media-downloader
 
